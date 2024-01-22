@@ -1,0 +1,95 @@
+#include <stdio.h>
+#include<conio.h>
+int main() {
+    int v, v1, v2, v3, v4, v5, nulo, i, mayor, empate, ganador;
+    float p1, p2, p3, p4, p5, pnulo;
+    char continuar;
+    do {
+        v1 = v2 = v3 = v4 = v5 = nulo = 0;
+        v = 0;
+        i = 0;
+        do {
+            printf("Ingrese el voto por el candidato 1, 2, 3, 4 o 5 (o 0 para terminar): ");
+            scanf("%d", &v);
+            if (v != 1 && v != 2 && v != 3 && v != 4 && v != 5) {
+                nulo++;
+            }
+            if (v == 1) {
+                v1++;
+            } else if (v == 2) {
+                v2++;
+            } else if (v == 3) {
+                v3++;
+            } else if (v == 4) {
+                v4++;
+            } else if (v == 5) {
+                v5++;
+            }
+            i++;
+        } while (v != 0);
+        p1 = (v1 * 100.0) / (i - 1);
+        p2 = (v2 * 100.0) / (i - 1);
+        p3 = (v3 * 100.0) / (i - 1);
+        p4 = (v4 * 100.0) / (i - 1);
+        p5 = (v5 * 100.0) / (i - 1);
+        pnulo = 100 - p1 - p2 - p3 - p4 - p5;
+        printf("\nLa cantidad total de votantes es de %d personas\n", (i - 1));
+        printf("Los votos nulos representan un %.2f del total de votantes\n", pnulo);
+        printf("El candidato #1 tiene %i votos, que representa un %.2f del total de votantes\n", v1, p1);
+        printf("El candidato #2 tiene %i votos, que representa un %.2f del total de votantes\n", v2, p2);
+        printf("El candidato #3 tiene %i votos, que representa un %.2f del total de votantes\n", v3, p3);
+        printf("El candidato #4 tiene %i votos, que representa un %.2f del total de votantes\n", v4, p4);
+        printf("El candidato #5 tiene %i votos, que representa un %.2f del total de votantes\n", v5, p5);
+        mayor = v1;
+        ganador = 1;
+        empate = 0;
+        if (v2 == mayor) {
+            empate = 1;
+        } else if (v2 > mayor) {
+            mayor = v2;
+            ganador = 2;
+            empate = 0;
+        }
+        if (v3 == mayor) {
+            empate = 1;
+        } else if (v3 > mayor) {
+            mayor = v3;
+            ganador = 3;
+            empate = 0;
+        }
+        if (v4 == mayor) {
+            empate = 1;
+        } else if (v4 > mayor) {
+            mayor = v4;
+            ganador = 4;
+            empate = 0;
+        }
+        if (v5 == mayor) {
+            empate = 1;
+        } else if (v5 > mayor) {
+            ganador = 5;
+            empate = 0;
+            mayor=v5;
+        }
+        if (empate) {
+            printf("\n--------EXISTE UN EMPATE--------\n");
+            printf(" Desea volver a realizar la votacion (S/N): ");
+            scanf(" %c", &continuar);
+            if (continuar == 'S' || continuar == 's') {
+                empate = 1;
+            } else {
+                empate = 0;
+                ganador = 0;
+            }
+        }
+    } while (empate);
+    if (ganador != 0) {
+        printf("------------EN BASE A LOS RESULTADOS OBTENIDOS, SE CONCLUYE QUE------------");
+        printf("\nEl candidato #%d es el ganador con la mayor cantidad de votos (%d votos).\n", ganador, mayor);
+    } else {
+        printf("----------EN BASE A LOS RESULTADOS OBTENIDOS, SE CONCLUYE QUE----------");
+        printf("\nHubo un empate entre los candidatos. No hay un ganador hasta volver a realizar las votaciones.\n");
+    }
+    getch();
+    return 0;
+}
